@@ -1,32 +1,22 @@
-import java.util.* ;
-import java.io.*; 
-public class Solution 
-{
-	public static int uniqueSubstrings(String input) 
-    {
-        HashSet<Character> set=new HashSet<Character>();
-        int left=0,right=0;
-        int len=0;
-       while(right<input.length())
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()<=1)
+            return s.length();
+        String sort="";
+        int max=1;
+        int count=0;
+        for(int i=0;i<s.length();i++)
         {
-            
-            if(!set.contains(input.charAt(right)))
-            {
-                set.add(input.charAt(right));
-                len=Math.max(len,right-left+1);
-                right++;
-            }
-            else 
-            {
-                while(left<=right && set.contains(input.charAt(right))){
-                 
-                    set.remove(input.charAt(left));                    
-                   left++;
-                }
-            len=Math.max(len,right-left+1);
-            }
+            count=1;
+          for(int j=i+1;j<s.length();j++)    
+          {
+              if(!s.substring(i,j).contains(s.charAt(j)+""))
+                  count++;
+              else 
+                  break;
+          }
+            max=Math.max(max,count);
         }
-        return len;
-    		//write your code here
-	}
+        return max;
+    }
 }
